@@ -1,7 +1,7 @@
 import { Injectable, Inject } from 'saber-ioc'
 import { InjSymbol } from '../../symbol/symbol'
 import { IFileService } from '../../interface/service/IFileService'
-import { Terminal } from 'saber-node'
+import { Terminal, Path } from 'saber-node'
 import { IPathService } from '../../interface/service/IPathService'
 import { IFileController } from '../../interface/controller/IFileController'
 import { IPathSrcService } from '../../interface/service/IPathSrcService'
@@ -31,5 +31,16 @@ export class FileController implements IFileController {
   }
   createInSrcInterface(name: string, content: string) {
     this.create(this.PathSrcService.interface, `${name}.ts`, content)
+  }
+  createInSrcSymbol(name: string, content: string) {
+    this.create(this.PathSrcService.symbol, `${name}.ts`, content)
+  }
+  async appendInBrace(fileContent: string, appendContent: string) {
+    if (Path.isExist(this.PathSrcService.symbol)) {
+      this.FileService.appendInBrace(this.PathSrcService.symbol, appendContent)
+    } else {
+      await this.FileService.createFile(this.PathSrcService.symbol, fileContent)
+      this.FileService.appendInBrace(this.PathSrcService.symbol, appendContent)
+    }
   }
 }

@@ -8,4 +8,6 @@ export interface ITemplateService {
   getServiceTemplate(name: string): string
   getControllerTemplate(name: string): string
   getInterfaceTemplate(name: string): string
+  getSymbolTemplate(): string
+  getSymbolAppended(name: string, type: TemplateType): string
 }

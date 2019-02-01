@@ -7,15 +7,15 @@ import {
 
 @Injectable(InjSymbol.TemplateService)
 export class TemplateService implements ITemplateService {
-  private readonly libHeader: string = `import { Injectable, Inject } from 'saber-ioc'`
+  private readonly libHeader: string = `import { Injectable, Inject } from 'saber-ioc';`
 
-  private readonly injSymbolHeader: string = `import { InjSymbol } from '../../symbol/symbol'`
+  private readonly injSymbolHeader: string = `import { InjSymbol } from '../../symbol/symbol';`
 
   private readonly commonHeader: string = `${this.libHeader}
   ${this.injSymbolHeader}`
 
   private getInterfaceHeader(name: string, type: TemplateType) {
-    return `import { I${name}${type} } from '../../interface/${type}/I${name}${type}'`
+    return `import { I${name}${type} } from '../../interface/${type}/I${name}${type}';`
   }
   getServiceName(name: string) {
     return `${name}Service`
@@ -39,7 +39,7 @@ export class TemplateService implements ITemplateService {
     @Injectable(InjSymbol.${ServiceName})
     export class ${ServiceName} implements ${IServiceName} {
       constructor(){}
-    }`
+    };`
   }
   getControllerTemplate(name: string) {
     const ControllerName = this.getControllerName(name)
@@ -56,9 +56,16 @@ export class TemplateService implements ITemplateService {
       constructor(
         @Inject(InjSymbol.${ServiceName}) private ${ServiceName}: ${IServiceName}
       ){}
-    }`
+    };`
   }
   getInterfaceTemplate(name: string) {
-    return `export interface ${name} {}`
+    return `export interface ${name} {};`
+  }
+  getSymbolTemplate() {
+    return `export namespace InjSymbol {
+    };`
+  }
+  getSymbolAppended(name: string, type: TemplateType) {
+    return `export const ${name}${type} = '${name}${type}';`
   }
 }

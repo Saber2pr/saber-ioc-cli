@@ -55,6 +55,19 @@ class Application {
       this.TemplateController.unshiftType(IControllerName, 'Controller'),
       IControllerTemplate
     )
+    const SymbolTemplate = this.TemplateController.getSymbolTemplate()
+    const ServiceSymbolAppendedTemplate = this.TemplateController.getSymbolAppended(
+      Name,
+      'Service'
+    )
+    const ControllerSymbolAppendedTemplate = this.TemplateController.getSymbolAppended(
+      Name,
+      'Controller'
+    )
+    this.FileController.appendInBrace(
+      SymbolTemplate,
+      `${ServiceSymbolAppendedTemplate}\n${ControllerSymbolAppendedTemplate}`
+    )
   }
 }
 

@@ -4,4 +4,5 @@ export interface IFileController {
   createInSrc(name: string, content: string): void
   createInSrcInjectable(name: string, content: string): void
   createInSrcInterface(name: string, content: string): void
+  appendInBrace(fileContent: string, appendContent: string): void
 }

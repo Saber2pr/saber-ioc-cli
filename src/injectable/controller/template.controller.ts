@@ -35,4 +35,10 @@ export class TemplateController implements ITemplateController {
   unshiftType(name: string, type: TemplateType) {
     return `${type}/${name}`
   }
+  getSymbolTemplate() {
+    return this.TemplateService.getSymbolTemplate()
+  }
+  getSymbolAppended(name: string, type: TemplateType) {
+    return this.TemplateService.getSymbolAppended(name, type)
+  }
 }

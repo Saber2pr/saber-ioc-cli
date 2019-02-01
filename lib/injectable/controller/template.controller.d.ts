@@ -11,4 +11,6 @@ export declare class TemplateController implements ITemplateController {
     getControllerTemplate(name: string): string;
     getInterfaceTemplate(name: string): string;
     unshiftType(name: string, type: TemplateType): string;
+    getSymbolTemplate(): string;
+    getSymbolAppended(name: string, type: TemplateType): string;
 }

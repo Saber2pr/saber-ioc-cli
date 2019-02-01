@@ -9,4 +9,6 @@ export interface ITemplateController {
   getControllerTemplate(name: string): string
   getInterfaceTemplate(name: string, type: TemplateType): string
   unshiftType(name: string, type: TemplateType): string
+  getSymbolTemplate(): string
+  getSymbolAppended(name: string, type: TemplateType): string
 }

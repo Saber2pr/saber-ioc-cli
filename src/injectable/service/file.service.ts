@@ -9,8 +9,13 @@ import { IFileService } from '../../interface/service/IFileService'
 @Injectable(InjSymbol.FileService)
 export class FileService implements IFileService {
   @PathExistCheck()
-  createFile(filePath: string, content: string) {
-    File.createFile(filePath, content)
+  async createFile(filePath: string, content: string) {
+    await File.createFile(filePath, content)
+  }
+  async appendInBrace(filePath: string, content: string) {
+    const res = await File.read(filePath)
+    const result = res.replace('}', `  ${content.concat('\n}')}`)
+    await File.createFile(filePath, result)
   }
 }
 /**

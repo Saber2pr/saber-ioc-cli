@@ -1,4 +1,4 @@
-import { ITemplateService } from '../../interface/service/ITemplateService';
+import { TemplateType, ITemplateService } from '../../interface/service/ITemplateService';
 export declare class TemplateService implements ITemplateService {
     private readonly libHeader;
     private readonly injSymbolHeader;
@@ -11,4 +11,6 @@ export declare class TemplateService implements ITemplateService {
     getServiceTemplate(name: string): string;
     getControllerTemplate(name: string): string;
     getInterfaceTemplate(name: string): string;
+    getSymbolTemplate(): string;
+    getSymbolAppended(name: string, type: TemplateType): string;
 }

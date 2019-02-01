@@ -17,4 +17,5 @@ export class PathSrcService implements IPathSrcService {
   readonly index: string = `${this.PathService.src}/index.ts`
   readonly injectable: string = `${this.PathService.src}/injectable`
   readonly interface: string = `${this.PathService.src}/interface`
+  readonly symbol: string = `${this.PathService.src}/symbol/symbol.ts`
 }
