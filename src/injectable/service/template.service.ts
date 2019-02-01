@@ -12,7 +12,7 @@ export class TemplateService implements ITemplateService {
   private readonly injSymbolHeader: string = `import { InjSymbol } from '../../symbol/symbol';`
 
   private readonly commonHeader: string = `${this.libHeader}
-  ${this.injSymbolHeader}`
+${this.injSymbolHeader}`
 
   private getInterfaceHeader(name: string, type: TemplateType) {
     return `import { I${name}${type} } from '../../interface/${type}/I${name}${type}';`
@@ -34,12 +34,12 @@ export class TemplateService implements ITemplateService {
     const IServiceName = this.getIServiceName(name)
 
     return `${this.commonHeader}
-    ${this.getInterfaceHeader(name, 'Service')}
-    
-    @Injectable(InjSymbol.${ServiceName})
-    export class ${ServiceName} implements ${IServiceName} {
-      constructor(){}
-    };`
+${this.getInterfaceHeader(name, 'Service')}
+
+@Injectable(InjSymbol.${ServiceName})
+export class ${ServiceName} implements ${IServiceName} {
+  constructor(){}
+};`
   }
   getControllerTemplate(name: string) {
     const ControllerName = this.getControllerName(name)
@@ -48,22 +48,22 @@ export class TemplateService implements ITemplateService {
     const IServiceName = this.getIServiceName(name)
 
     return `${this.commonHeader}
-    ${this.getInterfaceHeader(name, 'Controller')}
-    ${this.getInterfaceHeader(name, 'Service')}
-    
-    @Injectable(InjSymbol.${ControllerName})
-    export class ${ControllerName} implements ${IControllerName} {
-      constructor(
-        @Inject(InjSymbol.${ServiceName}) private ${ServiceName}: ${IServiceName}
-      ){}
-    };`
+${this.getInterfaceHeader(name, 'Controller')}
+${this.getInterfaceHeader(name, 'Service')}
+
+@Injectable(InjSymbol.${ControllerName})
+export class ${ControllerName} implements ${IControllerName} {
+  constructor(
+    @Inject(InjSymbol.${ServiceName}) private ${ServiceName}: ${IServiceName}
+  ){}
+};`
   }
   getInterfaceTemplate(name: string) {
     return `export interface ${name} {};`
   }
   getSymbolTemplate() {
     return `export namespace InjSymbol {
-    };`
+};`
   }
   getSymbolAppended(name: string, type: TemplateType) {
     return `export const ${name}${type} = '${name}${type}';`

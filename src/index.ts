@@ -9,6 +9,7 @@ import { TemplateController } from './injectable/controller/template.controller'
 import { PathService } from './injectable/service/path.service'
 import { PathSrcService } from './injectable/service/pathsrc.service'
 import { TemplateService } from './injectable/service/template.service'
+import { Terminal } from 'saber-node'
 
 @Bootstrap
 class Application {
@@ -17,8 +18,10 @@ class Application {
     @Inject(InjSymbol.TemplateController)
     private TemplateController: ITemplateController
   ) {}
-  main() {
-    const Name = 'Hello'
+  async getParams() {
+    return Terminal.getParams()
+  }
+  async createModule(Name: string) {
     const ServiceName = `${this.TemplateController.getServiceName(Name)}`
     const ControllerName = `${this.TemplateController.getControllerName(Name)}`
     const IServiceName = `${this.TemplateController.getIServiceName(Name)}`
@@ -66,8 +69,12 @@ class Application {
     )
     this.FileController.appendInBrace(
       SymbolTemplate,
-      `${ServiceSymbolAppendedTemplate}\n${ControllerSymbolAppendedTemplate}`
+      `${ServiceSymbolAppendedTemplate}\n  ${ControllerSymbolAppendedTemplate}`
     )
+  }
+  async main() {
+    const params = await this.getParams()
+    params.forEach(name => this.createModule(name))
   }
 }
 
