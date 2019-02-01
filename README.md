@@ -1,7 +1,7 @@
 <h1 align="center">saber-ioc-cli</h1>
   <p align="center">
     <a href="https://www.npmjs.com/package/saber-ioc-cli">
-      npm
+      <img src="https://img.shields.io/npm/v/saber-ioc-cli.svg?colorB=blue&style=flat" />
     </a>
   </p>
 <h3 align="center">a cli for saber-ioc dev</h3>
