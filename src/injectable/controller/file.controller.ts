@@ -13,27 +13,27 @@ export class FileController implements IFileController {
     @Inject(InjSymbol.PathService) private PathService: IPathService,
     @Inject(InjSymbol.PathSrcService) private PathSrcService: IPathSrcService
   ) {}
-  create(dirPath: string, name: string, content: string) {
+  async create(dirPath: string, name: string, content: string) {
     try {
-      this.FileService.createFile(`${dirPath}/${name}`, content)
+      await this.FileService.createFile(`${dirPath}/${name}`, content)
     } catch (error) {
       Terminal.Print.error((<Error>error).message)
     }
   }
-  createInRoot(name: string, content: string) {
-    this.create(this.PathService.root, `${name}.ts`, content)
+  async createInRoot(name: string, content: string) {
+    await this.create(this.PathService.root, `${name}.ts`, content)
   }
-  createInSrc(name: string, content: string) {
-    this.create(this.PathService.src, `${name}.ts`, content)
+  async createInSrc(name: string, content: string) {
+    await this.create(this.PathService.src, `${name}.ts`, content)
   }
-  createInSrcInjectable(name: string, content: string) {
-    this.create(this.PathSrcService.injectable, `${name}.ts`, content)
+  async createInSrcInjectable(name: string, content: string) {
+    await this.create(this.PathSrcService.injectable, `${name}.ts`, content)
   }
-  createInSrcInterface(name: string, content: string) {
-    this.create(this.PathSrcService.interface, `${name}.ts`, content)
+  async createInSrcInterface(name: string, content: string) {
+    await this.create(this.PathSrcService.interface, `${name}.ts`, content)
   }
-  createInSrcSymbol(name: string, content: string) {
-    this.create(this.PathSrcService.symbol, `${name}.ts`, content)
+  async createInSrcSymbol(name: string, content: string) {
+    await this.create(this.PathSrcService.symbol, `${name}.ts`, content)
   }
   async appendInBrace(fileContent: string, appendContent: string) {
     if (Path.isExist(this.PathSrcService.symbol)) {

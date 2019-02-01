@@ -40,19 +40,19 @@ class Application {
       'Controller'
     )
 
-    this.FileController.createInSrcInjectable(
+    await this.FileController.createInSrcInjectable(
       this.TemplateController.unshiftType(ServiceName, 'Service'),
       ServiceTemplate
     )
-    this.FileController.createInSrcInjectable(
+    await this.FileController.createInSrcInjectable(
       this.TemplateController.unshiftType(ControllerName, 'Controller'),
       ControllerTemplate
     )
-    this.FileController.createInSrcInterface(
+    await this.FileController.createInSrcInterface(
       this.TemplateController.unshiftType(IServiceName, 'Service'),
       IServiceTemplate
     )
-    this.FileController.createInSrcInterface(
+    await this.FileController.createInSrcInterface(
       this.TemplateController.unshiftType(IControllerName, 'Controller'),
       IControllerTemplate
     )
@@ -73,11 +73,11 @@ class Application {
     await this.FileController.appendSIOCModule(ServiceName, indexTemplate)
     await this.FileController.appendSIOCModule(ControllerName, indexTemplate)
     const ModuleHeader = this.TemplateController.getModuleHeader(Name)
-    this.FileController.unshiftContent(ModuleHeader)
+    await this.FileController.unshiftContent(ModuleHeader)
   }
   async main() {
     const params = await this.getParams()
-    params.forEach(name => this.createModule(name))
+    params.forEach(async name => await this.createModule(name))
   }
 }
 
