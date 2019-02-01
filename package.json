@@ -1,0 +1,23 @@
+{
+  "name": "saber-ioc-cli",
+  "version": "0.0.1",
+  "description": "a cli for saber-ioc dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Saber2pr/saber-ioc-cli.git"
+  },
+  "author": "saber2pr",
+  "license": "MIT",
+  "bin": "./lib/index.js",
+  "scripts": {
+    "test": "node ./lib/index.js",
+    "start": "tsc --watch"
+  },
+  "devDependencies": {
+    "typescript": "^3.2.1"
+  },
+  "dependencies": {
+    "saber-ioc": "^0.2.6",
+    "saber-node": "^1.2.4"
+  }
+}
