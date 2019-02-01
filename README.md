@@ -1,6 +1,10 @@
-# saber-ioc-cli
-
-> a cli for saber-ioc dev
+<h1 align="center">saber-ioc-cli</h1>
+  <p align="center">
+    <a href="https://www.npmjs.com/package/saber-ioc-cli">
+      npm
+    </a>
+  </p>
+<h3 align="center">a cli for saber-ioc dev</h3>
 
 ```bash
 # from npm
