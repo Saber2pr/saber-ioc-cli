@@ -8,7 +8,9 @@
   },
   "author": "saber2pr",
   "license": "MIT",
-  "bin": "./lib/index.js",
+  "bin": {
+    "sioc": "./lib/index.js"
+  },
   "scripts": {
     "test": "node ./lib/index.js",
     "start": "tsc --watch"

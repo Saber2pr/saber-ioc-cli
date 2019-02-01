@@ -2,10 +2,7 @@ import { Injectable } from 'saber-ioc'
 import { File, Path } from 'saber-node'
 import { InjSymbol } from '../../symbol/symbol'
 import { IFileService } from '../../interface/service/IFileService'
-/**
- * @export
- * @class FileService
- */
+
 @Injectable(InjSymbol.FileService)
 export class FileService implements IFileService {
   @PathExistCheck()
@@ -18,9 +15,7 @@ export class FileService implements IFileService {
     await File.createFile(filePath, result)
   }
 }
-/**
- * @returns {MethodDecorator}
- */
+
 function PathExistCheck(): MethodDecorator {
   return (target, key) => {
     const origin: Function = Reflect.get(target, key)

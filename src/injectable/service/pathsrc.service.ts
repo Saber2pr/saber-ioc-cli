@@ -3,12 +3,6 @@ import { InjSymbol } from '../../symbol/symbol'
 import { IPathService } from '../../interface/service/IPathService'
 import { IPathSrcService } from '../../interface/service/IPathSrcService'
 
-/**
- * PathSrcService
- *
- * @export
- * @class PathSrcService
- */
 @Injectable(InjSymbol.PathSrcService)
 export class PathSrcService implements IPathSrcService {
   constructor(
