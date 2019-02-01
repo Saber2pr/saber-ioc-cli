@@ -22,12 +22,10 @@ class Application {
     return Terminal.getParams()
   }
   async createModule(Name: string) {
-    const ServiceName = `${this.TemplateController.getServiceName(Name)}`
-    const ControllerName = `${this.TemplateController.getControllerName(Name)}`
-    const IServiceName = `${this.TemplateController.getIServiceName(Name)}`
-    const IControllerName = `${this.TemplateController.getIControllerName(
-      Name
-    )}`
+    const ServiceName = this.TemplateController.getServiceName(Name)
+    const ControllerName = this.TemplateController.getControllerName(Name)
+    const IServiceName = this.TemplateController.getIServiceName(Name)
+    const IControllerName = this.TemplateController.getIControllerName(Name)
 
     const ServiceTemplate = this.TemplateController.getServiceTemplate(Name)
     const ControllerTemplate = this.TemplateController.getControllerTemplate(
@@ -71,6 +69,11 @@ class Application {
       SymbolTemplate,
       `${ServiceSymbolAppendedTemplate}\n  ${ControllerSymbolAppendedTemplate}`
     )
+    const indexTemplate = this.TemplateController.getIndexTemplate()
+    await this.FileController.appendSIOCModule(ServiceName, indexTemplate)
+    await this.FileController.appendSIOCModule(ControllerName, indexTemplate)
+    const ModuleHeader = this.TemplateController.getModuleHeader(Name)
+    this.FileController.unshiftContent(ModuleHeader)
   }
   async main() {
     const params = await this.getParams()

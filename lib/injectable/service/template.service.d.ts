@@ -13,4 +13,6 @@ export declare class TemplateService implements ITemplateService {
     getInterfaceTemplate(name: string): string;
     getSymbolTemplate(): string;
     getSymbolAppended(name: string, type: TemplateType): string;
+    getIndexTemplate(): string;
+    getModuleHeader(name: string): string;
 }

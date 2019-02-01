@@ -14,4 +14,6 @@ export declare class FileController implements IFileController {
     createInSrcInterface(name: string, content: string): void;
     createInSrcSymbol(name: string, content: string): void;
     appendInBrace(fileContent: string, appendContent: string): Promise<void>;
+    appendSIOCModule(Name: string, fileContent: string): Promise<void>;
+    unshiftContent(appendContent: string): Promise<void>;
 }

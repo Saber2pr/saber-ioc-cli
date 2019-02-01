@@ -41,4 +41,10 @@ export class TemplateController implements ITemplateController {
   getSymbolAppended(name: string, type: TemplateType) {
     return this.TemplateService.getSymbolAppended(name, type)
   }
+  getIndexTemplate() {
+    return this.TemplateService.getIndexTemplate()
+  }
+  getModuleHeader(name: string) {
+    return this.TemplateService.getModuleHeader(name)
+  }
 }

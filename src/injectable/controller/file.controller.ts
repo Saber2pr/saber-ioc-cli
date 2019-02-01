@@ -37,10 +37,27 @@ export class FileController implements IFileController {
   }
   async appendInBrace(fileContent: string, appendContent: string) {
     if (Path.isExist(this.PathSrcService.symbol)) {
-      this.FileService.appendInBrace(this.PathSrcService.symbol, appendContent)
+      await this.FileService.appendInBrace(
+        this.PathSrcService.symbol,
+        appendContent
+      )
     } else {
       await this.FileService.createFile(this.PathSrcService.symbol, fileContent)
-      this.FileService.appendInBrace(this.PathSrcService.symbol, appendContent)
+      await this.FileService.appendInBrace(
+        this.PathSrcService.symbol,
+        appendContent
+      )
     }
+  }
+  async appendSIOCModule(Name: string, fileContent: string) {
+    if (Path.isExist(this.PathSrcService.index)) {
+      await this.FileService.appendSIOCModule(this.PathSrcService.index, Name)
+    } else {
+      await this.FileService.createFile(this.PathSrcService.index, fileContent)
+      await this.FileService.appendSIOCModule(this.PathSrcService.index, Name)
+    }
+  }
+  async unshiftContent(appendContent: string) {
+    this.FileService.unshiftContent(this.PathSrcService.index, appendContent)
   }
 }

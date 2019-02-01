@@ -14,6 +14,26 @@ export class FileService implements IFileService {
     const result = res.replace('}', `  ${content.concat('\n}')}`)
     await File.createFile(filePath, result)
   }
+  async unshiftContent(filePath: string, appendContent: string) {
+    const res = await File.read(filePath)
+    await File.createFile(filePath, `${appendContent}\n${res}`)
+  }
+  async appendSIOCModule(filePath: string, appendContent: string) {
+    const res = await File.read(filePath)
+    const target = 'SaIOC.Container('
+    const targetIndex = res.lastIndexOf(target)
+    const bas = res.charAt(targetIndex + target.length)
+    let append
+    if (bas === ')') {
+      append = appendContent
+    } else {
+      append = `,${appendContent}`
+    }
+    const anchor = ').run('
+    res
+    const next = res.replace(anchor, append.concat(anchor))
+    await File.createFile(filePath, next)
+  }
 }
 
 function PathExistCheck(): MethodDecorator {
