@@ -61,6 +61,6 @@ export class FileController implements IFileController {
     this.FileService.unshiftContent(this.PathSrcService.index, appendContent)
   }
   testSIOCModule(Name: string) {
-    return Path.isExist(`this.PathSrcService.injectable/${Name}.ts`)
+    return Path.isExist(`${this.PathSrcService.injectable}/${Name}.ts`)
   }
 }
