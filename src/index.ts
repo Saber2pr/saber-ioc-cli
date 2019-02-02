@@ -69,11 +69,18 @@ class Application {
       SymbolTemplate,
       `${ServiceSymbolAppendedTemplate}\n  ${ControllerSymbolAppendedTemplate}`
     )
-    const indexTemplate = this.TemplateController.getIndexTemplate()
-    await this.FileController.appendSIOCModule(ServiceName, indexTemplate)
-    await this.FileController.appendSIOCModule(ControllerName, indexTemplate)
-    const ModuleHeader = this.TemplateController.getModuleHeader(Name)
-    await this.FileController.unshiftContent(ModuleHeader)
+    if (
+      this.FileController.testSIOCModule(ServiceName) ||
+      this.FileController.testSIOCModule(ControllerName)
+    ) {
+      Terminal.Print.error(`Module: ${Name} is existed!`)
+    } else {
+      const indexTemplate = this.TemplateController.getIndexTemplate()
+      await this.FileController.appendSIOCModule(ServiceName, indexTemplate)
+      await this.FileController.appendSIOCModule(ControllerName, indexTemplate)
+      const ModuleHeader = this.TemplateController.getModuleHeader(Name)
+      await this.FileController.unshiftContent(ModuleHeader)
+    }
   }
   async main() {
     const params = await this.getParams()

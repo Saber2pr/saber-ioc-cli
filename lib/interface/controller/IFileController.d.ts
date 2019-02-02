@@ -7,4 +7,5 @@ export interface IFileController {
     appendInBrace(fileContent: string, appendContent: string): void;
     appendSIOCModule(Name: string, fileContent: string): Promise<void>;
     unshiftContent(appendContent: string): Promise<void>;
+    testSIOCModule(Name: string): boolean;
 }
