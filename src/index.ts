@@ -19,7 +19,7 @@ class Application {
     @Inject(InjSymbol.TemplateController)
     private TemplateController: ITemplateController
   ) {}
-  async getParams() {
+  private getParams() {
     return Terminal.getParams()
   }
   async createModule(Name: string) {
@@ -79,7 +79,7 @@ class Application {
         Name,
         'Controller'
       )
-      this.FileController.appendInBrace(
+      await this.FileController.appendInBrace(
         SymbolTemplate,
         `${ServiceSymbolAppendedTemplate}\n  ${ControllerSymbolAppendedTemplate}`
       )
@@ -90,8 +90,8 @@ class Application {
       await this.FileController.unshiftContent(ModuleHeader)
     }
   }
-  async main() {
-    const params = await this.getParams()
+  main() {
+    const params = this.getParams()
     params.forEach(async name => await this.createModule(name))
   }
 }

@@ -58,7 +58,10 @@ export class FileController implements IFileController {
     }
   }
   async unshiftContent(appendContent: string) {
-    this.FileService.unshiftContent(this.PathSrcService.index, appendContent)
+    await this.FileService.unshiftContent(
+      this.PathSrcService.index,
+      appendContent
+    )
   }
   testSIOCModule<T>(Name: string, type: T) {
     return (
