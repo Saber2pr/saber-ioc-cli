@@ -16,5 +16,5 @@ export declare class FileController implements IFileController {
     appendInBrace(fileContent: string, appendContent: string): Promise<void>;
     appendSIOCModule(Name: string, fileContent: string): Promise<void>;
     unshiftContent(appendContent: string): Promise<void>;
-    testSIOCModule(Name: string): boolean;
+    testSIOCModule<T>(Name: string, type: T): boolean;
 }

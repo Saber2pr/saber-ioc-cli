@@ -4,8 +4,8 @@ export interface IFileController {
     createInSrc(name: string, content: string): Promise<void>;
     createInSrcInjectable(name: string, content: string): Promise<void>;
     createInSrcInterface(name: string, content: string): Promise<void>;
-    appendInBrace(fileContent: string, appendContent: string): void;
+    appendInBrace(fileContent: string, appendContent: string): Promise<void>;
     appendSIOCModule(Name: string, fileContent: string): Promise<void>;
     unshiftContent(appendContent: string): Promise<void>;
-    testSIOCModule(Name: string): boolean;
+    testSIOCModule<T>(Name: string, type: T): boolean;
 }

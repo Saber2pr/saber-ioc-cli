@@ -10,6 +10,7 @@ import { PathService } from './injectable/service/path.service'
 import { PathSrcService } from './injectable/service/pathsrc.service'
 import { TemplateService } from './injectable/service/template.service'
 import { Terminal } from 'saber-node'
+import { TemplateType } from './interface/service/ITemplateService'
 
 @Bootstrap
 class Application {
@@ -27,54 +28,61 @@ class Application {
     const IServiceName = this.TemplateController.getIServiceName(Name)
     const IControllerName = this.TemplateController.getIControllerName(Name)
 
-    const ServiceTemplate = this.TemplateController.getServiceTemplate(Name)
-    const ControllerTemplate = this.TemplateController.getControllerTemplate(
-      Name
-    )
-    const IServiceTemplate = this.TemplateController.getInterfaceTemplate(
-      IServiceName,
-      'Service'
-    )
-    const IControllerTemplate = this.TemplateController.getInterfaceTemplate(
-      IControllerName,
-      'Controller'
-    )
-
-    await this.FileController.createInSrcInjectable(
-      this.TemplateController.unshiftType(ServiceName, 'Service'),
-      ServiceTemplate
-    )
-    await this.FileController.createInSrcInjectable(
-      this.TemplateController.unshiftType(ControllerName, 'Controller'),
-      ControllerTemplate
-    )
-    await this.FileController.createInSrcInterface(
-      this.TemplateController.unshiftType(IServiceName, 'Service'),
-      IServiceTemplate
-    )
-    await this.FileController.createInSrcInterface(
-      this.TemplateController.unshiftType(IControllerName, 'Controller'),
-      IControllerTemplate
-    )
-    const SymbolTemplate = this.TemplateController.getSymbolTemplate()
-    const ServiceSymbolAppendedTemplate = this.TemplateController.getSymbolAppended(
-      Name,
-      'Service'
-    )
-    const ControllerSymbolAppendedTemplate = this.TemplateController.getSymbolAppended(
-      Name,
-      'Controller'
-    )
-    this.FileController.appendInBrace(
-      SymbolTemplate,
-      `${ServiceSymbolAppendedTemplate}\n  ${ControllerSymbolAppendedTemplate}`
-    )
     if (
-      this.FileController.testSIOCModule(ServiceName) ||
-      this.FileController.testSIOCModule(ControllerName)
+      this.FileController.testSIOCModule<TemplateType>(
+        ServiceName,
+        'Service'
+      ) ||
+      this.FileController.testSIOCModule<TemplateType>(
+        ControllerName,
+        'Controller'
+      )
     ) {
       Terminal.Print.error(`Module: ${Name} is existed!`)
     } else {
+      const ServiceTemplate = this.TemplateController.getServiceTemplate(Name)
+      const ControllerTemplate = this.TemplateController.getControllerTemplate(
+        Name
+      )
+      const IServiceTemplate = this.TemplateController.getInterfaceTemplate(
+        IServiceName,
+        'Service'
+      )
+      const IControllerTemplate = this.TemplateController.getInterfaceTemplate(
+        IControllerName,
+        'Controller'
+      )
+
+      await this.FileController.createInSrcInjectable(
+        this.TemplateController.unshiftType(ServiceName, 'Service'),
+        ServiceTemplate
+      )
+      await this.FileController.createInSrcInjectable(
+        this.TemplateController.unshiftType(ControllerName, 'Controller'),
+        ControllerTemplate
+      )
+      await this.FileController.createInSrcInterface(
+        this.TemplateController.unshiftType(IServiceName, 'Service'),
+        IServiceTemplate
+      )
+      await this.FileController.createInSrcInterface(
+        this.TemplateController.unshiftType(IControllerName, 'Controller'),
+        IControllerTemplate
+      )
+
+      const SymbolTemplate = this.TemplateController.getSymbolTemplate()
+      const ServiceSymbolAppendedTemplate = this.TemplateController.getSymbolAppended(
+        Name,
+        'Service'
+      )
+      const ControllerSymbolAppendedTemplate = this.TemplateController.getSymbolAppended(
+        Name,
+        'Controller'
+      )
+      this.FileController.appendInBrace(
+        SymbolTemplate,
+        `${ServiceSymbolAppendedTemplate}\n  ${ControllerSymbolAppendedTemplate}`
+      )
       const indexTemplate = this.TemplateController.getIndexTemplate()
       await this.FileController.appendSIOCModule(ServiceName, indexTemplate)
       await this.FileController.appendSIOCModule(ControllerName, indexTemplate)
