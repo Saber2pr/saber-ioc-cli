@@ -16,7 +16,7 @@ git clone https://github.com/Saber2pr/saber-ioc-cli.git
 
 # Usage
 
-1. sioc `<ModuleName>`
+1. sioc `<Module Name>`
 
 For example:
 
