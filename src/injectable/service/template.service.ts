@@ -69,11 +69,11 @@ export class ${ControllerName} implements ${IControllerName} {
     return `export const ${name}${type} = '${name}${type}';`
   }
   getIndexTemplate() {
-    return `import { SaIOC } from 'saber-ioc'
-new SaIOC.Container().run()`
+    return `import { SaIOC } from 'saber-ioc;'
+new SaIOC.Container().run();`
   }
   getModuleHeader(name: string) {
-    return `import { ${name}Controller } from './injectable/Controller/${name}Controller'
-import { ${name}Service } from './injectable/Service/${name}Service'`
+    return `import { ${name}Controller } from './injectable/Controller/${name}Controller';
+import { ${name}Service } from './injectable/Service/${name}Service';`
   }
 }

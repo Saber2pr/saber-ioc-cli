@@ -81,7 +81,7 @@ class Application {
       )
       await this.FileController.appendInBrace(
         SymbolTemplate,
-        `${ServiceSymbolAppendedTemplate}\n  ${ControllerSymbolAppendedTemplate}`
+        `\n  ${ServiceSymbolAppendedTemplate}\n  ${ControllerSymbolAppendedTemplate}`
       )
       const indexTemplate = this.TemplateController.getIndexTemplate()
       await this.FileController.appendSIOCModule(ServiceName, indexTemplate)

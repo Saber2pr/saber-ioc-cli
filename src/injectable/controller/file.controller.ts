@@ -1,7 +1,7 @@
 import { Injectable, Inject } from 'saber-ioc'
 import { InjSymbol } from '../../symbol/symbol'
 import { IFileService } from '../../interface/service/IFileService'
-import { Terminal, Path } from 'saber-node'
+import { Terminal, Path, File } from 'saber-node'
 import { IPathService } from '../../interface/service/IPathService'
 import { IFileController } from '../../interface/controller/IFileController'
 import { IPathSrcService } from '../../interface/service/IPathSrcService'
@@ -37,13 +37,13 @@ export class FileController implements IFileController {
   }
   async appendInBrace(fileContent: string, appendContent: string) {
     if (Path.isExist(this.PathSrcService.symbol)) {
-      await this.FileService.appendInBrace(
+      await this.FileService.appendSIOCSymbolInBrace(
         this.PathSrcService.symbol,
         appendContent
       )
     } else {
       await this.FileService.createFile(this.PathSrcService.symbol, fileContent)
-      await this.FileService.appendInBrace(
+      await this.FileService.appendSIOCSymbolInBrace(
         this.PathSrcService.symbol,
         appendContent
       )
@@ -53,7 +53,7 @@ export class FileController implements IFileController {
     if (Path.isExist(this.PathSrcService.index)) {
       await this.FileService.appendSIOCModule(this.PathSrcService.index, Name)
     } else {
-      await this.FileService.createFile(this.PathSrcService.index, fileContent)
+      await File.createFile(this.PathSrcService.index, fileContent)
       await this.FileService.appendSIOCModule(this.PathSrcService.index, Name)
     }
   }

@@ -9,10 +9,16 @@ export class FileService implements IFileService {
   async createFile(filePath: string, content: string) {
     await File.createFile(filePath, content)
   }
-  async appendInBrace(filePath: string, content: string) {
+  async joinFile(filePath: string, anchorContent: string, joinContent: string) {
     const res = await File.read(filePath)
-    const result = res.replace('}', `  ${content.concat('\n}')}`)
-    await File.createFile(filePath, result)
+    const resArr = res.split(anchorContent)
+    await File.writeFileAsync(
+      filePath,
+      [resArr[0], anchorContent, joinContent, resArr[1]].join('')
+    )
+  }
+  async appendSIOCSymbolInBrace(filePath: string, content: string) {
+    await this.joinFile(filePath, 'export namespace InjSymbol {', content)
   }
   async unshiftContent(filePath: string, appendContent: string) {
     const res = await File.read(filePath)
@@ -21,16 +27,16 @@ export class FileService implements IFileService {
   async appendSIOCModule(filePath: string, appendContent: string) {
     const res = await File.read(filePath)
     const target = 'SaIOC.Container('
-    const targetIndex = res.lastIndexOf(target)
-    const bas = res.charAt(targetIndex + target.length)
-    let append
+    const targetIndex = res.indexOf(target)
+    const pos = targetIndex + target.length
+    const bas = res.charAt(pos)
+    let append: string
     if (bas === ')') {
       append = appendContent
     } else {
-      append = `,${appendContent}`
+      append = `${appendContent},`
     }
-    const anchor = ').run('
-    res
+    const anchor = res.slice(pos)
     const next = res.replace(anchor, append.concat(anchor))
     await File.createFile(filePath, next)
   }
