@@ -9,16 +9,8 @@ export class FileService implements IFileService {
   async createFile(filePath: string, content: string) {
     await File.createFile(filePath, content)
   }
-  async joinFile(filePath: string, anchorContent: string, joinContent: string) {
-    const res = await File.read(filePath)
-    const resArr = res.split(anchorContent)
-    await File.writeFileAsync(
-      filePath,
-      [resArr[0], anchorContent, joinContent, resArr[1]].join('')
-    )
-  }
   async appendSIOCSymbolInBrace(filePath: string, content: string) {
-    await this.joinFile(filePath, 'export namespace InjSymbol {', content)
+    await File.joinFile(filePath, 'export namespace InjSymbol {', content)
   }
   async unshiftContent(filePath: string, appendContent: string) {
     const res = await File.read(filePath)

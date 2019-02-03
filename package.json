@@ -27,6 +27,6 @@
   },
   "dependencies": {
     "saber-ioc": "^0.2.6",
-    "saber-node": "^1.2.5"
+    "saber-node": "^1.2.6"
   }
 }
