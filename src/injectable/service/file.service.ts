@@ -17,20 +17,7 @@ export class FileService implements IFileService {
     await File.createFile(filePath, `${appendContent}\n${res}`)
   }
   async appendSIOCModule(filePath: string, appendContent: string) {
-    const res = await File.read(filePath)
-    const target = 'SaIOC.Container('
-    const targetIndex = res.indexOf(target)
-    const pos = targetIndex + target.length
-    const bas = res.charAt(pos)
-    let append: string
-    if (bas === ')') {
-      append = appendContent
-    } else {
-      append = `${appendContent},`
-    }
-    const anchor = res.slice(pos)
-    const next = res.replace(anchor, append.concat(anchor))
-    await File.createFile(filePath, next)
+    await File.joinFile(filePath, 'SaIOC.Container(', `${appendContent},`)
   }
 }
 
